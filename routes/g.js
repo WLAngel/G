@@ -34,12 +34,12 @@ router.post('', upload.single('file'), (req, res) => {
 
 router.get('/:ri', (req, res) => {
   const { ri } = req.params;
-  gMap.query(ri)
-    .then(({ Items }) => {
-      if (Items.length === 0) {
+  gMap.get(ri)
+    .then((data) => {
+      if (data.Item === undefined) {
         return Promise.reject(new Error('ri not found'));
       }
-      const path = Items[0].path.S;
+      const path = data.Item.path.S;
       return g.get(path);
     })
     .then((data) => {
