@@ -15,10 +15,15 @@ provider:
         - Fn::GetAtt: [ DynamoDbGMapTable, Arn ]
     - Effect: Allow
       Action:
-        - s3:getObject
-        - s3:putObject
+        - s3:GetObject
+        - s3:PutObject
       Resource:
-        - Fn::GetAtt: [ S3GBucket, Arn ]
+        Fn::Join:
+          - ''
+          - - Fn::GetAtt:
+              - S3GBucket
+              - Arn
+            - /*
   environment:
     G_MAP_TABLE: ${file(./config.js):getEnv.G_MAP_TABLE}
     G_BUCKET: ${file(./config.js):getEnv.G_BUCKET}
