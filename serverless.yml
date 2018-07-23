@@ -1,5 +1,21 @@
 service: g
 
+plugins:
+  - serverless-apigw-binary
+  - serverless-domain-manager
+
+custom:
+  apigwBinary:
+    types:
+      - '*/*'
+  customDomain:
+    domainName: ${file(./config.js):getEnv.CUSTOM_DOMAIN_NAME}
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: false
+    certificateName: ${file(./config.js):getEnv.CERTIFICATE_NAME}
+    endpointType: regional
+
 provider:
   name: aws
   runtime: nodejs6.10
