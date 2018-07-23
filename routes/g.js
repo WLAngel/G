@@ -19,7 +19,7 @@ router.post('', upload.single('file'), (req, res) => {
   g.put(key, req.file)
     .then(() => gMap.save(key))
     .then((ri) => {
-      const url = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
+      const url = `https://${req.get('host')}${req.baseUrl}${req.path}`;
       res.json({
         data: {
           url: `${url}${ri}`,
